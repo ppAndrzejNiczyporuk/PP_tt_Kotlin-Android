@@ -1,4 +1,7 @@
-# Soap Sample
-A sample/demo app that requests XML response data from a web service (http://www.webserviceX.NET) and its WSDL file (http://www.webservicex.net/globalweather.asmx?WSDL), and displays extracted data (major cities for a certain country) based on user input.
+# Przykład podłączenia WSDL Poczty Polskiej w Anroid Kotlin
+Poczta Polska śledzenie w Swift Na podstawie dokumentacji http://www.poczta-polska.pl/pliki/webservices/Metody%20i%20struktury%20uslugi%20sieciowej%20Poczty%20Polskiej%20SA.pdf?84cd58
 
-![alt tag](https://media.giphy.com/media/26FmQkLBVBzUCkHXa/giphy.gif)
+Na przykładzie https://tt.poczta-polska.pl/Sledzenie/services/Sledzenie?wsdl oraz metody sprawdzPrzesylke
+
+
+
