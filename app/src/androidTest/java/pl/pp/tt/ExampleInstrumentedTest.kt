@@ -1,4 +1,4 @@
-package com.davenotdavid.soapsample
+package pl.pp.tt
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

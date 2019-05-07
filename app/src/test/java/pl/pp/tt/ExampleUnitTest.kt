@@ -1,4 +1,4 @@
-package com.davenotdavid.soapsample
+package pl.pp.tt
 
 import org.junit.Test
 

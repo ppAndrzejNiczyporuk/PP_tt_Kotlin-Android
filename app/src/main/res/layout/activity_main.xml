@@ -5,13 +5,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.davenotdavid.soapsample.MainActivity">
+    tools:context="pl.pp.tt.MainActivity">
 
     <EditText
         android:id="@+id/input_query"
-        android:hint="@string/edit_text_hint"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_text_hint"
+        android:text="testp0" />
 
     <Button
         android:id="@+id/search_button"

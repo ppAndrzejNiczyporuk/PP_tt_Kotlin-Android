@@ -1,21 +1,19 @@
-package com.davenotdavid.soapsample
+package pl.pp.tt
 
 import android.app.LoaderManager
 import android.content.AsyncTaskLoader
 import android.content.Loader
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
-
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * This sample app displays a list of data (major cities from a particular country) that's
  * extracted from an XML response via a web service.
  */
-class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<List<String>> {
+class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<List<PPEvent>> {
 
     // Log tag constant.
     private val LOG_TAG = MainActivity::class.java.simpleName
@@ -38,7 +36,7 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<List<Str
         recycler_view.setHasFixedSize(true)
 
         // Sets the adapter on the RecyclerView so its list can be populated with UI.
-        recycler_view.adapter = CitiesAdapter(mutableListOf<String>())
+        recycler_view.adapter = EventAdapter(mutableListOf<PPEvent>())
 
         // Sets the button with the following functionality.
         search_button.setOnClickListener {
@@ -55,8 +53,8 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<List<Str
         }
     }
 
-    override fun onCreateLoader(i: Int, bundle: Bundle?): Loader<List<String>> {
-        return object : AsyncTaskLoader<List<String>>(this) {
+    override fun onCreateLoader(i: Int, bundle: Bundle?): Loader<List<PPEvent>> {
+        return object : AsyncTaskLoader<List<PPEvent>>(this) {
 
             override fun onStartLoading() {
                 super.onStartLoading()
@@ -67,7 +65,7 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<List<Str
                 forceLoad()
             }
 
-            override fun loadInBackground(): List<String>? {
+            override fun loadInBackground(): List<PPEvent>? {
                 //Log.d(LOG_TAG, "loadInBackground()")
 
                 // Returns null and exits out of this thread immediately should the user not enter
@@ -77,12 +75,12 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<List<Str
                 }
 
                 // Returns XML response data via the following Utils object method.
-                return QueryUtils.fetchCitiesData(input_query.text.toString())
+                return QueryUtils.fetchEventData(input_query.text.toString())
             }
         }
     }
 
-    override fun onLoadFinished(loader: Loader<List<String>>, responseData: List<String>?) {
+    override fun onLoadFinished(loader: Loader<List<PPEvent>>, responseData: List<PPEvent>?) {
         //Log.d(LOG_TAG, "onLoadFinished()")
 
         // Hides the progress bar after the background thread completes.
@@ -91,16 +89,16 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<List<Str
         // Displays the RecyclerView of data. Otherwise, displays an empty state TextView instead.
         if (responseData != null) {
             recycler_view.visibility = View.VISIBLE
-            recycler_view.adapter = CitiesAdapter(responseData)
+            recycler_view.adapter = EventAdapter(responseData)
         } else {
             empty_state_textview.visibility = View.VISIBLE
         }
     }
 
-    override fun onLoaderReset(loader: Loader<List<String>>) {
+    override fun onLoaderReset(loader: Loader<List<PPEvent>>) {
         //Log.d(LOG_TAG, "onLoaderReset()")
 
         // "Clears" out the existing data since the loader resetted.
-        recycler_view.adapter = CitiesAdapter(mutableListOf<String>())
+        recycler_view.adapter = EventAdapter(mutableListOf<PPEvent>())
     }
 }

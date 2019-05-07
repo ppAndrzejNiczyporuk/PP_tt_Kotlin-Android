@@ -5,13 +5,32 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:id="@+id/cities_textview"
-        android:textColor="@color/colorBlack"
+        android:id="@+id/name_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:padding="@dimen/default_padding"
         android:textAppearance="?android:textAppearanceMedium"
-        android:layout_width="wrap_content"
+        android:textColor="@color/colorBlack"
+        tools:text="Nazwa" />
+
+    <TextView
+        android:id="@+id/jName_event"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="City Data" />
+        android:padding="@dimen/default_padding"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/colorBlack"
+        tools:text="jNazwa" />
+
+
+    <TextView
+        android:id="@+id/data_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_padding"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/colorBlack"
+        tools:text="Data" />
 
     <View
         android:background="@color/colorLightGray"
