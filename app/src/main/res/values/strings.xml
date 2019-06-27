@@ -3,4 +3,6 @@
     <string name="edit_text_hint">Wprowadź numer przesyłki</string>
     <string name="search_button_text">Szukaj danych</string>
     <string name="no_data_text">Nie znaleziono</string>
+    <string name="call">Zadzwoń</string>
+    <string name="sms">Sms</string>
 </resources>

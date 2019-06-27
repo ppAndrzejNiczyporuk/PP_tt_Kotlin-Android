@@ -99,15 +99,13 @@ object QueryUtils {
     private fun extractDataFromResponse(obj: SoapObject): List<PPEvent>? {
         val eventList = mutableListOf<PPEvent>()
         val obj1 = obj.getProperty("zdarzenia") as SoapObject //zadarzenia
-        for (i in 0 until obj1.getPropertyCount()) {
+        for (i in 0 until obj1.propertyCount) {
             val obj2 = obj1.getProperty(i) as SoapObject //zdarzenie
             val obj3 = obj2.getProperty("jednostka") as SoapObject //jednostka
             val ppEv = PPEvent(obj2.getProperty("nazwa").toString(), czas = obj2.getProperty("czas").toString(), jnazwa = obj3.getProperty("nazwa").toString())
             eventList.add(ppEv)
-
         }
-        return eventList
-
+        return eventList.asReversed()
     }
 
     fun buildAuthHeader(): Array<Element?> {
@@ -117,22 +115,22 @@ object QueryUtils {
         val security = headers[0]
 
         //user token
-        val usernametoken = Element().createElement(security?.getNamespace(), "UsernameToken")
+        val usernametoken = Element().createElement(security?.namespace, "UsernameToken")
         usernametoken.setAttribute("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd", "Id", "UsernameToken-2")
 
         //username
-        val username = Element().createElement(security?.getNamespace(), "Username")
+        val username = Element().createElement(security?.namespace, "Username")
         username.addChild(Node.TEXT, "sledzeniepp")
         usernametoken.addChild(Node.ELEMENT, username)
 
         // password
-        val password = Element().createElement(security?.getNamespace(), "Password")
+        val password = Element().createElement(security?.namespace, "Password")
         password.setAttribute(null, "Type", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText")
         password.addChild(Node.TEXT, "PPSA")
         usernametoken.addChild(Node.ELEMENT, password)
 
         //Nonce
-        val nonce = Element().createElement(security?.getNamespace(), "Nonce")
+        val nonce = Element().createElement(security?.namespace, "Nonce")
         nonce.setAttribute(null, "EncodingType", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary")
         nonce.addChild(Node.TEXT, "X41PkdzntfgpowZsKegMFg==")
         usernametoken.addChild(Node.ELEMENT, nonce)

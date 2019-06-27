@@ -12,41 +12,73 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/edit_text_hint"
-        android:text="testp0" />
+        android:text="" />
 
-    <Button
-        android:id="@+id/search_button"
-        android:text="@string/search_button_text"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout">
+
+        <Button
+            android:id="@+id/search_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search_button_text"
+            app:layout_constraintBaseline_toBaselineOf="@+id/call_button"
+            app:layout_constraintEnd_toStartOf="@+id/call_button"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/call_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/call"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sms_button"
+            app:layout_constraintStart_toEndOf="@+id/search_button" />
+
+        <Button
+            android:id="@+id/sms_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sms"
+            app:layout_constraintBaseline_toBaselineOf="@+id/call_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/call_button" />
+    </android.support.constraint.ConstraintLayout>
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/empty_state_textview"
-            android:text="@string/no_data_text"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:text="@string/no_data_text"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:visibility="invisible" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:scrollbars="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
 
     </RelativeLayout>
 
