@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<List<PPE
 
     private var carrierTel = ""
     private var parcelNum = ""  //TODO on change off call and sms button
-    private val requestReceiveSms = 2
+    private val requestReceiveSms = 1
     // Log tag constant.
     private val LOG_TAG = MainActivity::class.java.simpleName
 
@@ -32,20 +32,40 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<List<PPE
 
     override fun onResume() {
         super.onResume()
-        val extras = intent.extras
-        if (extras != null) {
-            if (extras.containsKey("parcelNum")) {
-                //val i = intent
-                parcelNum = intent.getStringExtra("parcelNum")
-                input_query.setText(parcelNum)
-                ReadParcelEvents()
+        when {
+            intent?.action == Intent.ACTION_SEND -> {
+                if ("text/plain" == intent.type) {
+                    val p = TextUtils.fetchNumber(intent.getStringExtra(Intent.EXTRA_TEXT))  //Get data from SMS
+                    if (p != null) {
+                        parcelNum = p.first
+                        carrierTel = p.second
+                        when {
+                            parcelNum.length == 0 -> {
+                                parcelNum = intent.getStringExtra(Intent.EXTRA_TEXT)
+                            }
+                        }
 
+                    }
+                }
             }
-            if (extras.containsKey("carrierTel")) {
-                //val i = intent
-                carrierTel = intent.getStringExtra("carrierTel")
+            intent?.action == null -> {
+                val extras = intent.extras
+                if (extras != null) {
+                    if (extras.containsKey("parcelNum")) {
+                        parcelNum = intent.getStringExtra("parcelNum")
+                    }
+                    if (extras.containsKey("carrierTel")) {
+                        carrierTel = intent.getStringExtra("carrierTel")
+                    }
+                }
             }
         }
+
+        if (parcelNum.length > 0) {
+            input_query.setText(parcelNum)
+            ReadParcelEvents()
+        }
+
         if (carrierTel.length == 0) {
             call_button.visibility = View.INVISIBLE; sms_button.visibility = View.INVISIBLE
         } else {
